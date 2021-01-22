@@ -13,6 +13,7 @@ import com.nick_sib.testtaskappcraft.mvp.model.repo.RepoAlbums
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.NetworkPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
+import com.nick_sib.testtaskappcraft.mvp.view.image.GlideImageLoader
 import com.nick_sib.testtaskappcraft.ui.adapter.AlbumsRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -30,9 +31,9 @@ class NetworkFragment:  MvpAppCompatFragment(), RetrofitView {
         )
     }
 
-//    private val adapter: AlbumsRVAdapter by lazy {
-//        AlbumsRVAdapter(presenter.albumsListPresenter, GlideImageLoader())
-//    }
+    private val adapter: AlbumsRVAdapter by lazy {
+        AlbumsRVAdapter(presenter.albumsListPresenter)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,12 +44,19 @@ class NetworkFragment:  MvpAppCompatFragment(), RetrofitView {
         it.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding?.run {
+            rvEmployees.adapter = adapter
+        }
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     override fun beginLoading() {
         //TODO:  показать circle_progress_bar
     }
 
     override fun endLoading() {
-//        TODO("Not yet implemented")
+        adapter.notifyDataSetChanged()
     }
 
     override fun progressLoading(value: Int) {
