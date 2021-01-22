@@ -1,10 +1,16 @@
 package com.nick_sib.testtaskappcraft
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.nick_sib.testtaskappcraft.mvp.preseter.MainPresenter
+import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : MvpAppCompatActivity(), RetrofitView {
+
+    private val presenter: MainPresenter = MainPresenter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -15,31 +21,44 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.container, NetworkFragment())
                             .commitAllowingStateLoss()
-                        true
                     }
                     R.id.bottom_database -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.container, DatabaseFragment())
                             .commitAllowingStateLoss()
-                        true
                     }
                     R.id.bottom_services -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.container, ServicesFragment())
                             .commitAllowingStateLoss()
-                        true
                     }
                     else -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.container, NetworkFragment())
                             .commitAllowingStateLoss()
-                        true
                     }
                 }
+                true
             }
             selectedItemId = R.id.bottom_network
-
         }
+    }
+
+    override fun beginLoading() {
 
     }
+
+    override fun endLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun progressLoading(value: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showError(error: Throwable) {
+        TODO("Not yet implemented")
+    }
+
+
 }
