@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_offset">16dp</dimen>
+    <dimen name="recycler_item_image_size">100dp</dimen>
+    <dimen name="def_item_margin">10dp</dimen>
+</resources>
