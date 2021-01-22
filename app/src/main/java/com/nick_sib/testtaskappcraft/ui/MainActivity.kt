@@ -7,6 +7,7 @@ import com.nick_sib.testtaskappcraft.*
 import com.nick_sib.testtaskappcraft.databinding.ActivityMainBinding
 import com.nick_sib.testtaskappcraft.mvp.model.api.LoadAlbumsImpl
 import com.nick_sib.testtaskappcraft.mvp.model.repo.RepoAlbums
+import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.MainPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
 import com.nick_sib.testtaskappcraft.ui.fragments.DatabaseFragment
@@ -32,7 +33,9 @@ class MainActivity : MvpAppCompatActivity(), RetrofitView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.apply {
             setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
@@ -76,7 +79,14 @@ class MainActivity : MvpAppCompatActivity(), RetrofitView {
     }
 
     override fun showError(error: Throwable) {
-        showSnack("${error.message}!", R.string.snack_button_got_it)
+        if (error is ThrowableConnect) {
+            showSnack(
+                resources.getString(R.string.snack_message_no_internet_connection),
+                R.string.snack_button_close)
+            { this@MainActivity.finish() }
+        } else {
+            showSnack("${error.message}!", R.string.snack_button_got_it)
+        }
     }
 
     private fun showSnack(messageText: String, buttonText: Int, onItemClick: (() -> Unit)? = null) {

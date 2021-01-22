@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Test task AppCraft</string>
 
+    <string name="snack_button_close">Exit</string>
+    <string name="snack_message_no_internet_connection">No internet connection, waiting for data</string>
     <string name="snack_button_got_it">GOT IT</string>
 </resources>

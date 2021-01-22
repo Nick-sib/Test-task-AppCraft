@@ -24,7 +24,11 @@ class MainPresenter(
             .subscribe({
                 viewState.endLoading()
             }, { error ->
+                if (error is ThrowableConnect) {
+                    waitInternetConnection()
+                } else {
                     viewState.showError(error)
+                }
             })
     }
 
