@@ -10,4 +10,6 @@ interface RetrofitView : MvpView {
     fun endLoading()
     fun progressLoading(value: Int)//если загрузка будет меньше 10 секунд заменить циклический прогрессбар
     fun showError(error: Throwable)
+    fun hideShack()
+
 }

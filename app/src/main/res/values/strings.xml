@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Test task AppCraft</string>
+
+    <string name="snack_button_got_it">GOT IT</string>
 </resources>
