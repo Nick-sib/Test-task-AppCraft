@@ -8,10 +8,14 @@ import com.nick_sib.testtaskappcraft.databinding.ActivityMainBinding
 import com.nick_sib.testtaskappcraft.ui.fragments.DatabaseFragment
 import com.nick_sib.testtaskappcraft.ui.fragments.NetworkFragment
 import com.nick_sib.testtaskappcraft.ui.fragments.ServicesFragment
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val navigatorHolder = App.instance.navigatorHolder
+    private val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.bottom_network -> {
+                        //App.instance.router.replaceScreen(Screens.UsersScreen())
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.container, NetworkFragment())
                             .commitAllowingStateLoss()
@@ -46,6 +51,16 @@ class MainActivity : AppCompatActivity() {
             }
             selectedItemId = R.id.bottom_network
         }
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        navigatorHolder.removeNavigator()
     }
 
 }

@@ -12,6 +12,8 @@ class AlbumsListPresenter: IAlbumsListPresenter {
         albums = data
     }
 
+    override fun getData(pos: Int): AlbumData = albums[pos]
+
     override var itemClickListener: ((AlbumItemView) -> Unit)? = null
 
     override fun bindView(view: AlbumItemView) {

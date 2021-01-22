@@ -1,5 +1,6 @@
 package com.nick_sib.testtaskappcraft.mvp.preseter
 
+import android.util.Log
 import com.nick_sib.testtaskappcraft.mvp.model.repo.IRepoAlbums
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.list.IAlbumsListPresenter
@@ -18,6 +19,12 @@ class NetworkPresenter(
         override fun onFirstViewAttach() {
             super.onFirstViewAttach()
             loadData()
+
+            albumsListPresenter.itemClickListener = { itemView ->
+                val album = albumsListPresenter.getData(itemView.pos)
+                Log.d("myLOG", "click: $album")
+                //router.replaceScreen(Screens.AlbumDetailsScreen(album))
+            }
         }
 
         private fun loadData() {

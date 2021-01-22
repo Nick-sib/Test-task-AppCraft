@@ -17,7 +17,6 @@
     <TextView
         android:id="@+id/tvAlbumTitle"
         style="@style/recycler_item_text_dark"
-
         app:layout_constraintStart_toEndOf="@+id/ivAlbumImage"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Text text text" />
