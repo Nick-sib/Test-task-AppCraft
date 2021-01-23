@@ -14,6 +14,7 @@ import com.nick_sib.testtaskappcraft.mvp.model.repo.RepoAlbums
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.AlbumDetailPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
+import com.nick_sib.testtaskappcraft.ui.adapter.PhotosRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -24,12 +25,15 @@ class AlbumDetailFragment: MvpAppCompatFragment(), RetrofitView {
 
     private var albumId: Int =-1
 
-
     private val presenter: AlbumDetailPresenter by moxyPresenter {
         AlbumDetailPresenter(
             albumId.toString(),
             RepoAlbums(networkStatus = LoadAlbumsImpl.networkStatus(App.instance))
         )
+    }
+
+    private val adapter: PhotosRVAdapter by lazy {
+        PhotosRVAdapter(presenter.albumsDetailListPresenter)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +48,13 @@ class AlbumDetailFragment: MvpAppCompatFragment(), RetrofitView {
     ): View = FragmentAlbumDetailBinding.inflate(inflater, container, false).let {
         binding = it
         it.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding?.run {
+            rvAlbumDetail.adapter = adapter
+        }
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroy() {
@@ -66,7 +77,7 @@ class AlbumDetailFragment: MvpAppCompatFragment(), RetrofitView {
     }
 
     override fun endLoading() {
-        //TODO("Not yet implemented")
+        adapter.notifyDataSetChanged()
     }
 
     override fun progressLoading(value: Int) {

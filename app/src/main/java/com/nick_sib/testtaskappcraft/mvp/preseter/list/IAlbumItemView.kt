@@ -1,5 +1,5 @@
 package com.nick_sib.testtaskappcraft.mvp.preseter.list
 
-interface AlbumItemView: IItemView {
+interface IAlbumItemView: IItemView {
     fun setTitle(text: String)
 }

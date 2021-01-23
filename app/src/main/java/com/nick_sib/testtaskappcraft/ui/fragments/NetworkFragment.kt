@@ -49,7 +49,7 @@ class NetworkFragment:  MvpAppCompatFragment(), RetrofitView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding?.run {
-            rvEmployees.adapter = adapter
+            rvAlbum.adapter = adapter
         }
         super.onViewCreated(view, savedInstanceState)
     }

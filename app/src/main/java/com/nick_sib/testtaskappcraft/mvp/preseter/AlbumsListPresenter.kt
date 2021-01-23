@@ -1,10 +1,10 @@
 package com.nick_sib.testtaskappcraft.mvp.preseter
 
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
-import com.nick_sib.testtaskappcraft.mvp.preseter.list.AlbumItemView
-import com.nick_sib.testtaskappcraft.mvp.preseter.list.IAlbumsListPresenter
+import com.nick_sib.testtaskappcraft.mvp.preseter.list.IAlbumItemView
+import com.nick_sib.testtaskappcraft.mvp.preseter.list.IDataListPresenter
 
-class AlbumsListPresenter: IAlbumsListPresenter {
+class AlbumsListPresenter: IDataListPresenter<AlbumData, IAlbumItemView> {
 
     var albums = listOf<AlbumData>()
 
@@ -14,9 +14,9 @@ class AlbumsListPresenter: IAlbumsListPresenter {
 
     override fun getData(pos: Int): AlbumData = albums[pos]
 
-    override var itemClickListener: ((AlbumItemView) -> Unit)? = null
+    override var itemClickListener: ((IAlbumItemView) -> Unit)? = null
 
-    override fun bindView(view: AlbumItemView) {
+    override fun bindView(view: IAlbumItemView) {
         val album = albums[view.pos]
         view.setTitle(album.title)
     }

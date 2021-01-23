@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_offset">16dp</dimen>
+    <dimen name="default_half_offset">8dp</dimen>
     <dimen name="recycler_item_image_size">100dp</dimen>
     <dimen name="def_item_margin">10dp</dimen>
+
+    <integer name="album_columns_count">3</integer>
+
+    <dimen name="spinner_size">50dip</dimen>
 </resources>

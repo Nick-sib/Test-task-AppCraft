@@ -1,7 +1,11 @@
 package com.nick_sib.testtaskappcraft.mvp.preseter
 
+import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
+import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumInfo
 import com.nick_sib.testtaskappcraft.mvp.model.repo.IRepoAlbumsDetail
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
+import com.nick_sib.testtaskappcraft.mvp.preseter.list.IAlbumDetailItemView
+import com.nick_sib.testtaskappcraft.mvp.preseter.list.IDataListPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpPresenter
@@ -13,8 +17,9 @@ class AlbumDetailPresenter(
 
     private val mainThread = AndroidSchedulers.mainThread()
 
-    override fun onFirstViewAttach() {
+    val albumsDetailListPresenter: IDataListPresenter<AlbumInfo, IAlbumDetailItemView> = AlbumsDetailListPresenter()
 
+    override fun onFirstViewAttach() {
         loadData()
     }
 
@@ -23,7 +28,7 @@ class AlbumDetailPresenter(
         albumDetailRepo.loadAlbumDataList(albumId)
             .observeOn(mainThread)
             .subscribe({
-                //albumsListPresenter.setList(it)
+                albumsDetailListPresenter.setList(it)
                 viewState.endLoading()
             }, { error ->
                 if (error is ThrowableConnect) {
