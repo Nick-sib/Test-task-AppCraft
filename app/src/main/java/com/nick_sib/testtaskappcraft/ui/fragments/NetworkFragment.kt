@@ -13,7 +13,6 @@ import com.nick_sib.testtaskappcraft.mvp.model.repo.RepoAlbums
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.NetworkPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
-import com.nick_sib.testtaskappcraft.mvp.view.image.GlideImageLoader
 import com.nick_sib.testtaskappcraft.ui.adapter.AlbumsRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -25,9 +24,8 @@ class NetworkFragment:  MvpAppCompatFragment(), RetrofitView {
 
     private val presenter: NetworkPresenter by moxyPresenter {
         NetworkPresenter(
-            RepoAlbums(
-                networkStatus = LoadAlbumsImpl.networkStatus(App.instance)
-            )
+            RepoAlbums(networkStatus = LoadAlbumsImpl.networkStatus(App.instance)),
+            App.instance.router
         )
     }
 

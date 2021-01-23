@@ -1,21 +1,27 @@
 package com.nick_sib.testtaskappcraft.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.nick_sib.testtaskappcraft.*
 import com.nick_sib.testtaskappcraft.databinding.ActivityMainBinding
-import com.nick_sib.testtaskappcraft.ui.fragments.DatabaseFragment
-import com.nick_sib.testtaskappcraft.ui.fragments.NetworkFragment
-import com.nick_sib.testtaskappcraft.ui.fragments.ServicesFragment
+import com.nick_sib.testtaskappcraft.mvp.preseter.MainPresenter
+import com.nick_sib.testtaskappcraft.mvp.view.ActivityView
+import com.nick_sib.testtaskappcraft.navigation.Screens
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : MvpAppCompatActivity(), ActivityView {
 
     private lateinit var binding: ActivityMainBinding
 
     private val navigatorHolder = App.instance.navigatorHolder
     private val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
+
+
+    private val presenter: MainPresenter by moxyPresenter {
+        MainPresenter(App.instance.router)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,25 +32,16 @@ class MainActivity : AppCompatActivity() {
             setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.bottom_network -> {
-                        //App.instance.router.replaceScreen(Screens.UsersScreen())
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, NetworkFragment())
-                            .commitAllowingStateLoss()
+                        presenter.showScreen(Screens.NetworkScreen())
                     }
                     R.id.bottom_database -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, DatabaseFragment())
-                            .commitAllowingStateLoss()
+                        presenter.showScreen(Screens.DatabaseScreen())
                     }
                     R.id.bottom_services -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, ServicesFragment())
-                            .commitAllowingStateLoss()
+                        presenter.showScreen(Screens.ServicesScreen())
                     }
                     else -> {
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, NetworkFragment())
-                            .commitAllowingStateLoss()
+                        presenter.showScreen(Screens.NetworkScreen())
                     }
                 }
                 true
@@ -62,5 +59,7 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         navigatorHolder.removeNavigator()
     }
+
+
 
 }

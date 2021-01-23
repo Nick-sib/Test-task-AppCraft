@@ -5,11 +5,14 @@ import com.nick_sib.testtaskappcraft.mvp.model.repo.IRepoAlbums
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.list.IAlbumsListPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
+import com.nick_sib.testtaskappcraft.navigation.Screens
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpPresenter
+import ru.terrakok.cicerone.Router
 
 class NetworkPresenter(
-        private val albumsRepo: IRepoAlbums
+        private val albumsRepo: IRepoAlbums,
+        private val router: Router,
     ): MvpPresenter<RetrofitView>() {
 
         val albumsListPresenter: IAlbumsListPresenter = AlbumsListPresenter()
@@ -22,7 +25,7 @@ class NetworkPresenter(
 
             albumsListPresenter.itemClickListener = { itemView ->
                 val album = albumsListPresenter.getData(itemView.pos)
-                Log.d("myLOG", "click: $album")
+                router.navigateTo(Screens.AlbumDetailScreen(-1))
                 //router.replaceScreen(Screens.AlbumDetailsScreen(album))
             }
         }
