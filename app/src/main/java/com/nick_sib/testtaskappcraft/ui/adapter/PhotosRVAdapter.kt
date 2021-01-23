@@ -37,7 +37,6 @@ class PhotosRVAdapter(
 
         override fun loadImage(url: String) {
             imageLoader.loadInto(url, binding.ivDetailImage)
-            binding.tvDel.text = url
         }
 
         override var pos: Int = -1

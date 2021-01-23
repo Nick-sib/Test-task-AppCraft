@@ -6,7 +6,7 @@ import com.nick_sib.testtaskappcraft.mvp.preseter.list.IDataListPresenter
 
 class AlbumsDetailListPresenter: IDataListPresenter<AlbumInfo, IAlbumDetailItemView> {
 
-    var albums = listOf<AlbumInfo>()
+    private var albums = listOf<AlbumInfo>()
 
     override fun setList(data: List<AlbumInfo>) {
         albums = data

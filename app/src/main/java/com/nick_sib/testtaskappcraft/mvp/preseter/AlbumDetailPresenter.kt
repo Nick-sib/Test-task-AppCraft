@@ -1,6 +1,5 @@
 package com.nick_sib.testtaskappcraft.mvp.preseter
 
-import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumInfo
 import com.nick_sib.testtaskappcraft.mvp.model.repo.IRepoAlbumsDetail
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
