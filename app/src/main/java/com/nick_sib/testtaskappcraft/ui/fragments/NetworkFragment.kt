@@ -42,6 +42,11 @@ class NetworkFragment:  MvpAppCompatFragment(), RetrofitView {
         it.root
     }
 
+    override fun onDestroy() {
+        binding = null
+        super.onDestroy()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding?.run {
             rvEmployees.adapter = adapter

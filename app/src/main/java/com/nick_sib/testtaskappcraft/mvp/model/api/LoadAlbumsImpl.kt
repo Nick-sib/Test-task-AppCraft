@@ -8,7 +8,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object LoadAlbumsImpl {
-
+//до дагера оставим это так
     private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
     fun getAllData(): ILoadAlbums = Retrofit.Builder()

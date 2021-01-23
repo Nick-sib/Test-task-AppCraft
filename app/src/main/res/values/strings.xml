@@ -7,6 +7,9 @@
     <string name="s_network">Network</string>
     <string name="s_database">DataBase</string>
     <string name="s_services">Services</string>
+    <string name="message_error_data">Sorry, data not transferred</string>
+
+
 
     <string name="image_def_description">only image nothing more</string>
 </resources>
