@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
@@ -53,6 +54,9 @@ class AlbumDetailFragment: MvpAppCompatFragment(), RetrofitView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding?.run {
             rvAlbumDetail.adapter = adapter
+            bLikeDislike.setOnClickListener {
+                (it as ImageView).setImageDrawable(resources.getDrawable(R.drawable.ic_dislike, null))
+            }
         }
         super.onViewCreated(view, savedInstanceState)
     }

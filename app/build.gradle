@@ -68,6 +68,9 @@ dependencies {
 //CICERONE
     implementation "ru.terrakok.cicerone:cicerone:5.1.1"
 
+//ROOM
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
