@@ -12,7 +12,6 @@ import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumDetailBinding
 import com.nick_sib.testtaskappcraft.mvp.model.api.LoadAlbumsImpl
 import com.nick_sib.testtaskappcraft.mvp.model.cache.room.RoomAlbumDetailCache
-import com.nick_sib.testtaskappcraft.mvp.model.cache.room.RoomAlbumInfoCache
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
 import com.nick_sib.testtaskappcraft.mvp.model.entity.room.Database
 import com.nick_sib.testtaskappcraft.mvp.model.repo.RepoAlbums
@@ -32,18 +31,10 @@ class AlbumDetailFragment: MvpAppCompatFragment(), AlbumDetailView {
     private lateinit var album: AlbumData
 
     private val presenter: AlbumDetailPresenter by moxyPresenter {
-        Database.instance?.let{
-            AlbumDetailPresenter(
-                album,
-                RepoAlbums(networkStatus = LoadAlbumsImpl.networkStatus(App.instance)),
-                RoomAlbumDetailCache(it),
-                RoomAlbumInfoCache(it),
-            )
-        } ?: AlbumDetailPresenter(
-                album,
-                RepoAlbums(networkStatus = LoadAlbumsImpl.networkStatus(App.instance)),
-                null,
-                null
+        AlbumDetailPresenter(
+            album,
+            RepoAlbums(networkStatus = LoadAlbumsImpl.networkStatus(App.instance)),
+            Database.instance?.let{RoomAlbumDetailCache(it)},
         )
     }
 
@@ -80,28 +71,22 @@ class AlbumDetailFragment: MvpAppCompatFragment(), AlbumDetailView {
         binding = null
     }
 
-    companion object {
-        private val EXTRA_DATA = AlbumDetailFragment::class.java.name + "EXTRA_DATA"
-
-        fun instance(album: AlbumData) = AlbumDetailFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable(EXTRA_DATA, album)
-            }
-        }
-    }
-
     override fun beginProgress() {
-        //TODO("Not yet implemented")
+        binding?.bLikeDislike?.visibility = View.GONE
     }
 
     override fun endProgress() {
         adapter.notifyDataSetChanged()
+        binding?.bLikeDislike?.visibility = View.VISIBLE
     }
 
     override fun beginCache() {
         //TODO("Not yet implemented")
     }
 
+    override fun endCache() {
+        //TODO("Not yet implemented")
+    }
 
     override fun showError(error: Throwable) {
         when (error) {
@@ -148,6 +133,15 @@ class AlbumDetailFragment: MvpAppCompatFragment(), AlbumDetailView {
                 resources.getDrawable(if (value) R.drawable.ic_dislike else R.drawable.ic_like,
                 null))
         }
+    }
 
+    companion object {
+        private val EXTRA_DATA = AlbumDetailFragment::class.java.name + "EXTRA_DATA"
+
+        fun instance(album: AlbumData) = AlbumDetailFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(EXTRA_DATA, album)
+            }
+        }
     }
 }

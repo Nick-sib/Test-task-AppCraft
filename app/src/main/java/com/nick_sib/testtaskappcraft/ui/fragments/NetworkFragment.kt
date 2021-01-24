@@ -7,23 +7,23 @@ import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
-import com.nick_sib.testtaskappcraft.databinding.FragmentNetworkBinding
+import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumsListBinding
 import com.nick_sib.testtaskappcraft.mvp.model.api.LoadAlbumsImpl
 import com.nick_sib.testtaskappcraft.mvp.model.repo.RepoAlbums
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
-import com.nick_sib.testtaskappcraft.mvp.preseter.NetworkPresenter
+import com.nick_sib.testtaskappcraft.mvp.preseter.NetworkAndDatabasePresenter
 import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
 import com.nick_sib.testtaskappcraft.ui.adapter.AlbumsRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class NetworkFragment:  MvpAppCompatFragment(), RetrofitView {
+class NetworkFragment: MvpAppCompatFragment(), RetrofitView {
 
-    private var binding: FragmentNetworkBinding? = null
+    private var binding: FragmentAlbumsListBinding? = null
     private var snack: Snackbar? = null
 
-    private val presenter: NetworkPresenter by moxyPresenter {
-        NetworkPresenter(
+    private val presenter: NetworkAndDatabasePresenter by moxyPresenter {
+        NetworkAndDatabasePresenter(
             RepoAlbums(networkStatus = LoadAlbumsImpl.networkStatus(App.instance)),
             App.instance.router
         )
@@ -37,7 +37,7 @@ class NetworkFragment:  MvpAppCompatFragment(), RetrofitView {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentNetworkBinding.inflate(inflater, container, false).let {
+    ): View = FragmentAlbumsListBinding.inflate(inflater, container, false).let {
         binding = it
         it.root
     }

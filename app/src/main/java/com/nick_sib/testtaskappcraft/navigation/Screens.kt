@@ -19,8 +19,7 @@ class Screens {
     class ServicesScreen : SupportAppScreen() {
         override fun getFragment() = ServicesFragment()
     }
-
-
+    
     class AlbumDetailScreen(private val album: AlbumData) : SupportAppScreen() {
         override fun getFragment() = AlbumDetailFragment.instance(album)
     }

@@ -17,7 +17,6 @@ class AlbumDetailPresenter(
     private val albumData: AlbumData,
     private val albumDetailRepo: IRepoAlbumsDetail,
     private val dataCache: IAlbumDetailCache?,
-    private val infoCache: IAlbumInfoCache?
     ): MvpPresenter<AlbumDetailView>() {
 
     private val mainThread = AndroidSchedulers.mainThread()
@@ -75,6 +74,7 @@ class AlbumDetailPresenter(
                 .observeOn(mainThread)
                 .subscribe({
                         viewState.setFavorite(true)
+                        viewState.beginCache()
                     }, { error ->
                         if (error is ThrowableCache) {
                             viewState.showError(ThrowableCache())
@@ -82,7 +82,6 @@ class AlbumDetailPresenter(
                             viewState.showError(error)
                         }
                     })
-
         } ?: run {
             viewState.showError(ThrowableCache())
         }
@@ -95,6 +94,7 @@ class AlbumDetailPresenter(
                 .observeOn(mainThread)
                 .subscribe({
                     viewState.setFavorite(false)
+                    viewState.beginCache()
                 }, { error ->
                     if (error is ThrowableCache) {
                         viewState.showError(ThrowableCache())
@@ -126,7 +126,5 @@ class AlbumDetailPresenter(
             deleteFromFavorite()
         else
             addToFavorite()
-
-
     }
 }

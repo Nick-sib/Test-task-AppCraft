@@ -1,6 +1,5 @@
 package com.nick_sib.testtaskappcraft.mvp.model.cache.room
 
-import android.util.Log
 import com.nick_sib.testtaskappcraft.mvp.model.cache.IAlbumDetailCache
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumInfo
@@ -23,10 +22,6 @@ class RoomAlbumDetailCache (private val db: Database) : IAlbumDetailCache {
         db.albumInfoDao.deleteAlbumInfo(data.id)
     }.subscribeOn(ioThread)
 
-
-    override fun getAllAlbumData(): Single<List<AlbumData>> = Single.fromCallable {
-        db.albumDataDao.getAll()
-    }
 
     override fun checkAlbumData(dataId: Int): Single<Boolean> = Single.fromCallable {
         !db.albumDataDao.getById(dataId).isNullOrEmpty()

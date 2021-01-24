@@ -11,6 +11,7 @@ interface AlbumDetailView: MvpView {
     fun beginProgress()
     fun endProgress()
     fun beginCache()
+    fun endCache()
     fun setFavorite(value: Boolean)
     fun showError(error: Throwable)
     fun hideShack()

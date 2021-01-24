@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-class NetworkPresenter(
+class NetworkAndDatabasePresenter(
         private val albumsRepo: IRepoAlbums,
         private val router: Router,
     ): MvpPresenter<RetrofitView>() {

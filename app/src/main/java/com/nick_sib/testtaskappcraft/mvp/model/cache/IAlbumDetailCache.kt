@@ -7,8 +7,6 @@ import io.reactivex.rxjava3.core.Single
 
 interface IAlbumDetailCache {
     fun addAlbumData(data: AlbumData, info: List<AlbumInfo>): Completable
-    //fun addAlbumData(data: AlbumData): Completable
-    fun getAllAlbumData(): Single<List<AlbumData>>
     fun deleteAlbumData(data: AlbumData): Completable
     fun checkAlbumData(dataId: Int): Single<Boolean>
 }
