@@ -3,6 +3,7 @@
 
     <string name="snack_button_close">Exit</string>
     <string name="snack_message_no_internet_connection">No internet connection, waiting for data</string>
+    <string name="snack_message_no_cache">Database is unavailable</string>
     <string name="snack_button_got_it">GOT IT</string>
     <string name="s_network">Network</string>
     <string name="s_database">DataBase</string>

@@ -54,16 +54,12 @@ class NetworkFragment:  MvpAppCompatFragment(), RetrofitView {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun beginLoading() {
+    override fun beginProgress() {
         //TODO:  показать circle_progress_bar
     }
 
-    override fun endLoading() {
+    override fun endProgress() {
         adapter.notifyDataSetChanged()
-    }
-
-    override fun progressLoading(value: Int) {
-        //TODO: 99% не нужно
     }
 
     override fun showError(error: Throwable) {

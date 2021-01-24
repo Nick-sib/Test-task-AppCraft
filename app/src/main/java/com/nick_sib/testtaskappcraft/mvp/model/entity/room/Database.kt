@@ -13,8 +13,8 @@ import com.nick_sib.testtaskappcraft.mvp.model.entity.room.dao.AlbumInfoDao
     version = 1
 )
 abstract class Database : RoomDatabase() {
-    abstract val userDao: AlbumDataDao
-    abstract val repositoryDao: AlbumInfoDao
+    abstract val albumDataDao: AlbumDataDao
+    abstract val albumInfoDao: AlbumInfoDao
 
     companion object {
         private const val DB_NAME = "database.db"

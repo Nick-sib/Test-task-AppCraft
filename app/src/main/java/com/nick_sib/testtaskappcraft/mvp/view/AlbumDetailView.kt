@@ -4,10 +4,15 @@ import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
+
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface RetrofitView : MvpView {
+interface AlbumDetailView: MvpView {
+
     fun beginProgress()
     fun endProgress()
+    fun beginCache()
+    fun setFavorite(value: Boolean)
     fun showError(error: Throwable)
     fun hideShack()
+
 }
