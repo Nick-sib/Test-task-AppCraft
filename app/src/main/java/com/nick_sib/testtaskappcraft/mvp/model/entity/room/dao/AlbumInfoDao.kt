@@ -9,7 +9,7 @@ interface AlbumInfoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(albumInfo: AlbumInfo)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(albumInfoList: List<AlbumInfo>)
+    fun insert(albumInfoList: List<AlbumInfo>): List<Long>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg albumInfoArg: AlbumInfo)
 

@@ -11,7 +11,7 @@ import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumDetailBinding
 import com.nick_sib.testtaskappcraft.mvp.model.api.LoadAlbumsImpl
-import com.nick_sib.testtaskappcraft.mvp.model.cache.room.RoomAlbumDataCache
+import com.nick_sib.testtaskappcraft.mvp.model.cache.room.RoomAlbumDetailCache
 import com.nick_sib.testtaskappcraft.mvp.model.cache.room.RoomAlbumInfoCache
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
 import com.nick_sib.testtaskappcraft.mvp.model.entity.room.Database
@@ -36,7 +36,7 @@ class AlbumDetailFragment: MvpAppCompatFragment(), AlbumDetailView {
             AlbumDetailPresenter(
                 album,
                 RepoAlbums(networkStatus = LoadAlbumsImpl.networkStatus(App.instance)),
-                RoomAlbumDataCache(it),
+                RoomAlbumDetailCache(it),
                 RoomAlbumInfoCache(it),
             )
         } ?: AlbumDetailPresenter(

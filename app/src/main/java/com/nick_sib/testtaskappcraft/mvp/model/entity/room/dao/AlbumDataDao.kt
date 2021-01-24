@@ -6,7 +6,7 @@ import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
 @Dao
 interface AlbumDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(albumData: AlbumData)
+    fun insert(albumData: AlbumData): Long
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(albumDataList: List<AlbumData>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)

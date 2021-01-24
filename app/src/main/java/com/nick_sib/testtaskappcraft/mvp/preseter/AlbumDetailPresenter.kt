@@ -1,6 +1,6 @@
 package com.nick_sib.testtaskappcraft.mvp.preseter
 
-import com.nick_sib.testtaskappcraft.mvp.model.cache.IAlbumDataCache
+import com.nick_sib.testtaskappcraft.mvp.model.cache.IAlbumDetailCache
 import com.nick_sib.testtaskappcraft.mvp.model.cache.IAlbumInfoCache
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumInfo
@@ -14,14 +14,14 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpPresenter
 
 class AlbumDetailPresenter(
-        private val albumData: AlbumData,
-        private val albumDetailRepo: IRepoAlbumsDetail,
-        private val dataCache: IAlbumDataCache?,
-        private val infoCache: IAlbumInfoCache?
+    private val albumData: AlbumData,
+    private val albumDetailRepo: IRepoAlbumsDetail,
+    private val dataCache: IAlbumDetailCache?,
+    private val infoCache: IAlbumInfoCache?
     ): MvpPresenter<AlbumDetailView>() {
 
     private val mainThread = AndroidSchedulers.mainThread()
-    private var albumInfo: List<AlbumInfo>? = null
+    private var albumInfo: List<AlbumInfo> = emptyList()
 
     val albumsDetailListPresenter: IDataListPresenter<AlbumInfo, IAlbumDetailItemView> = AlbumsDetailListPresenter()
 
@@ -71,14 +71,9 @@ class AlbumDetailPresenter(
     private fun addToFavorite(){
         dataCache?.run{
             viewState.beginCache()
-            addAlbumData(albumData)
-                    .observeOn(mainThread)
-                    .andThen {
-                        albumInfo?.run{
-                            infoCache?.addAlbumInfo(this)
-                        }
-                    }
-                    .subscribe({
+            addAlbumData(albumData, albumInfo)
+                .observeOn(mainThread)
+                .subscribe({
                         viewState.setFavorite(true)
                     }, { error ->
                         if (error is ThrowableCache) {
@@ -94,15 +89,10 @@ class AlbumDetailPresenter(
     }
 
     private fun deleteFromFavorite(){
-        infoCache?.run{
+        dataCache?.run{
             viewState.beginCache()
-            deleteAlbumInfo(albumData.id)
+            deleteAlbumData(albumData)
                 .observeOn(mainThread)
-                .andThen{
-                    albumInfo?.run{
-                        dataCache?.deleteAlbumData(albumData)
-                    }
-                }
                 .subscribe({
                     viewState.setFavorite(false)
                 }, { error ->
