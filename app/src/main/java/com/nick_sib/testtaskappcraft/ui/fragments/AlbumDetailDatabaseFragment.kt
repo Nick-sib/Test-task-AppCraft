@@ -68,20 +68,13 @@ class AlbumDetailDatabaseFragment: ParentFragment(), AlbumDetailView {
 
 
     override fun beginProgress() {
-//        TODO("Not yet implemented")
+        //что бы то нибыло показывать нет смысла всё быстро появиться и спрячется
     }
 
-    override fun endCache() {
-//        TODO("Not yet implemented")
-    }
 
     override fun endProgress() {
         adapter.notifyDataSetChanged()
         binding?.bLikeDislike?.visibility = View.VISIBLE
-    }
-
-    override fun beginCache() {
-//        TODO("Not yet implemented")
     }
 
     override fun setFavorite(value: Boolean) {

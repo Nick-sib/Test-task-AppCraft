@@ -68,20 +68,18 @@ class AlbumDetailNetworkFragment: ParentFragment(), AlbumDetailView {
     }
 
     override fun beginProgress() {
-        binding?.bLikeDislike?.visibility = View.GONE
+        binding?.run{
+            bLikeDislike.visibility = View.GONE
+            progress.visibility = View.VISIBLE
+        }
     }
 
     override fun endProgress() {
         adapter.notifyDataSetChanged()
-        binding?.bLikeDislike?.visibility = View.VISIBLE
-    }
-
-    override fun beginCache() {
-        //TODO("Not yet implemented")
-    }
-
-    override fun endCache() {
-        //TODO("Not yet implemented")
+        binding?.run {
+            progress.visibility = View.GONE
+            bLikeDislike.visibility = View.VISIBLE
+        }
     }
 
     override fun showError(error: Throwable) {
