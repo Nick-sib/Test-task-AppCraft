@@ -14,6 +14,9 @@ import com.nick_sib.testtaskappcraft.ui.MainActivity
 private const val CHANNEL_ID = "NavigationMusicServiceChannel"
 private const val CHANNEL_NAME = "Navigation and music service channel"
 const val ACTION_LOCATION_IN_NOTIFICATION= "ACTION_LOCATION_IN_NOTIFICATION"
+const val ACTION_INTENT_SEND_LOCATION= "ACTION_INTENT_SEND_LOCATION"
+const val KEY_DATA_LOCATION= "KEY_DATA_LOCATION"
+const val REQUEST_LOCATION= 12345L
 
 class NavMusicService: Service() {
 
@@ -36,7 +39,12 @@ class NavMusicService: Service() {
         startForeground(1, notification)
 
         player.start()
-        //TODO ещё provider для локации
+        LocateProvider(this).getDeviceLocation {
+
+            val intentLocInfo = Intent(ACTION_INTENT_SEND_LOCATION)
+                .apply { putExtra(KEY_DATA_LOCATION, it) }
+            sendBroadcast(intentLocInfo)
+        }
 
         return START_NOT_STICKY
     }
