@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumsListBinding
+import com.nick_sib.testtaskappcraft.di.network.NetworkSubComponent
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.NetworkAndDatabasePresenter
 import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
@@ -20,9 +21,12 @@ class NetworkFragment: MvpAppCompatFragment(), RetrofitView {
     private var binding: FragmentAlbumsListBinding? = null
     private var snack: Snackbar? = null
 
+    private var networkSubComponent: NetworkSubComponent? = null
+
     private val presenter: NetworkAndDatabasePresenter by moxyPresenter {
+        networkSubComponent = App.instance.initNetworkSubComponent()
         NetworkAndDatabasePresenter().apply {
-            App.instance.appComponent.inject(this)
+            networkSubComponent?.inject(this)
         }
     }
 
@@ -83,6 +87,11 @@ class NetworkFragment: MvpAppCompatFragment(), RetrofitView {
 
     override fun hideShack() {
         snack?.dismiss()
+    }
+
+    override fun release() {
+        networkSubComponent = null
+        App.instance.releaseNetworkSubComponent()
     }
 
 

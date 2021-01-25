@@ -4,6 +4,7 @@ import android.app.Application
 import com.nick_sib.testtaskappcraft.di.AppComponent
 import com.nick_sib.testtaskappcraft.di.DaggerAppComponent
 import com.nick_sib.testtaskappcraft.di.modules.AppModule
+import com.nick_sib.testtaskappcraft.di.network.NetworkSubComponent
 
 class App: Application() {
 
@@ -15,6 +16,8 @@ class App: Application() {
     lateinit var appComponent: AppComponent
         private set
 
+    private var networkSubComponent: NetworkSubComponent? = null
+
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -23,4 +26,14 @@ class App: Application() {
             .appModule(AppModule(this))
             .build()
     }
+
+
+    fun initNetworkSubComponent() = appComponent.networkSubComponent().also {
+        networkSubComponent = it
+    }
+
+    fun releaseNetworkSubComponent() {
+        networkSubComponent = null
+    }
+
 }

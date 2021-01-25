@@ -88,4 +88,8 @@ class DatabaseFragment: MvpAppCompatFragment(), RetrofitView {
     override fun hideShack() {
         snack?.dismiss()
     }
+
+    override fun release() {
+        TODO("Not yet implemented")
+    }
 }

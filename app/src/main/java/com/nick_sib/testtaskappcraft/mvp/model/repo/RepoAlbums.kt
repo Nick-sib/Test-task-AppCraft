@@ -10,7 +10,6 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RepoAlbums(
-    //private val api: ILoadAlbums = LoadAlbumsImpl.getAllData(),
     private val api: ILoadAlbums,
     private val networkStatus: INetworkStatus,
 ): IRepoAlbums, IRepoAlbumsDetail {

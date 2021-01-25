@@ -34,6 +34,11 @@ class NetworkAndDatabasePresenter: MvpPresenter<RetrofitView>() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewState.release()
+    }
+
     private fun loadData() {
         viewState.beginProgress()
         albumsRepo.loadAllAlbumsList()
