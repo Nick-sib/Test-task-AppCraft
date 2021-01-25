@@ -17,14 +17,15 @@ abstract class Database : RoomDatabase() {
     abstract val albumInfoDao: AlbumInfoDao
 
     companion object {
-        private const val DB_NAME = "database.db"
-        var instance: Database? = null
-            get() = field ?: synchronized(Database::class.java) {
-                field = Room.databaseBuilder(App.instance, Database::class.java, DB_NAME)
-                    .fallbackToDestructiveMigration()
-                    .build()
-                field
-            }
-            private set
+        const val DB_NAME = "database.db"
+
+//        var instance: Database? = null
+//            get() = field ?: synchronized(Database::class.java) {
+//                field = Room.databaseBuilder(App.instance, Database::class.java, DB_NAME)
+//                    .fallbackToDestructiveMigration()
+//                    .build()
+//                field
+//            }
+//            private set
     }
 }

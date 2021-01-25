@@ -3,6 +3,7 @@ package com.nick_sib.testtaskappcraft
 import android.app.Application
 import com.nick_sib.testtaskappcraft.di.AppComponent
 import com.nick_sib.testtaskappcraft.di.DaggerAppComponent
+import com.nick_sib.testtaskappcraft.di.albumdetail.AlbumDetailSubComponent
 import com.nick_sib.testtaskappcraft.di.modules.AppModule
 import com.nick_sib.testtaskappcraft.di.network.NetworkSubComponent
 
@@ -17,6 +18,7 @@ class App: Application() {
         private set
 
     private var networkSubComponent: NetworkSubComponent? = null
+    private var albumDetailSubComponent: AlbumDetailSubComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -34,6 +36,14 @@ class App: Application() {
 
     fun releaseNetworkSubComponent() {
         networkSubComponent = null
+    }
+
+    fun initAlbumDetailSubComponent() = networkSubComponent?.albumDetailSubComponent().also {
+        albumDetailSubComponent = it
+    }
+
+    fun releaseAlbumDetailSubComponent() {
+        albumDetailSubComponent = null
     }
 
 }
