@@ -22,16 +22,17 @@ class DatabaseFragment: MvpAppCompatFragment(), RetrofitView {
     private var binding: FragmentAlbumsListBinding? = null
     private var snack: Snackbar? = null
 
-    private val presenter: NetworkAndDatabasePresenter by moxyPresenter {
-        NetworkAndDatabasePresenter(
-            RoomRepoAlbumsCache(Database.instance!!),
-            App.instance.router
-        )
-    }
-
-    private val adapter: AlbumsRVAdapter by lazy {
-        AlbumsRVAdapter(presenter.albumsListPresenter)
-    }
+//    private val presenter: NetworkAndDatabasePresenter by moxyPresenter {
+//        NetworkAndDatabasePresenter(
+//            RoomRepoAlbumsCache(Database.instance!!),
+//        ).apply {
+//            App.instance.appComponent.inject(this)
+//        }
+//    }
+//
+//    private val adapter: AlbumsRVAdapter by lazy {
+//        AlbumsRVAdapter(presenter.albumsListPresenter)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,19 +48,19 @@ class DatabaseFragment: MvpAppCompatFragment(), RetrofitView {
         super.onDestroy()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding?.run {
-            rvAlbum.adapter = adapter
-        }
-        super.onViewCreated(view, savedInstanceState)
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        binding?.run {
+//            rvAlbum.adapter = adapter
+//        }
+//        super.onViewCreated(view, savedInstanceState)
+//    }
 
     override fun beginProgress() {
         //TODO:  показать circle_progress_bar
     }
 
     override fun endProgress() {
-        adapter.notifyDataSetChanged()
+//        adapter.notifyDataSetChanged()
     }
 
     override fun showError(error: Throwable) {

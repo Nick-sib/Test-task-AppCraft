@@ -7,21 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
-import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumDetailBinding
-import com.nick_sib.testtaskappcraft.mvp.model.api.LoadAlbumsImpl
-import com.nick_sib.testtaskappcraft.mvp.model.cache.room.RoomAlbumDetailCache
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
-import com.nick_sib.testtaskappcraft.mvp.model.entity.room.Database
-import com.nick_sib.testtaskappcraft.mvp.model.repo.RepoAlbums
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableCache
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
-import com.nick_sib.testtaskappcraft.mvp.preseter.AlbumDetailPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.AlbumDetailView
-import com.nick_sib.testtaskappcraft.ui.adapter.PhotosRVAdapter
 import moxy.MvpAppCompatFragment
-import moxy.ktx.moxyPresenter
 
 class AlbumDetailFragment: MvpAppCompatFragment(), AlbumDetailView {
 
@@ -30,17 +22,17 @@ class AlbumDetailFragment: MvpAppCompatFragment(), AlbumDetailView {
 
     private lateinit var album: AlbumData
 
-    private val presenter: AlbumDetailPresenter by moxyPresenter {
-        AlbumDetailPresenter(
-            album,
-            RepoAlbums(networkStatus = LoadAlbumsImpl.networkStatus(App.instance)),
-            Database.instance?.let{RoomAlbumDetailCache(it)},
-        )
-    }
-
-    private val adapter: PhotosRVAdapter by lazy {
-        PhotosRVAdapter(presenter.albumsDetailListPresenter)
-    }
+//    private val presenter: AlbumDetailPresenter by moxyPresenter {
+//        AlbumDetailPresenter(
+//            album,
+//            RepoAlbums(networkStatus = LoadAlbumsImpl.networkStatus(App.instance)),
+//            Database.instance?.let{RoomAlbumDetailCache(it)},
+//        )
+//    }
+//
+//    private val adapter: PhotosRVAdapter by lazy {
+//        PhotosRVAdapter(presenter.albumsDetailListPresenter)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         album = arguments?.getParcelable(EXTRA_DATA) ?: AlbumData()
@@ -57,12 +49,12 @@ class AlbumDetailFragment: MvpAppCompatFragment(), AlbumDetailView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding?.run {
-            rvAlbumDetail.adapter = adapter
-            bLikeDislike.setOnClickListener {
-                presenter.changeToFavorite()
-            }
-        }
+//        binding?.run {
+//            rvAlbumDetail.adapter = adapter
+//            bLikeDislike.setOnClickListener {
+//                presenter.changeToFavorite()
+//            }
+//        }
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -76,7 +68,7 @@ class AlbumDetailFragment: MvpAppCompatFragment(), AlbumDetailView {
     }
 
     override fun endProgress() {
-        adapter.notifyDataSetChanged()
+//        adapter.notifyDataSetChanged()
         binding?.bLikeDislike?.visibility = View.VISIBLE
     }
 

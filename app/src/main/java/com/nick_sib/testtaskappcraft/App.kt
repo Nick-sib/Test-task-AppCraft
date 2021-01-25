@@ -1,9 +1,9 @@
 package com.nick_sib.testtaskappcraft
 
 import android.app.Application
-import ru.terrakok.cicerone.Cicerone
-import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
+import com.nick_sib.testtaskappcraft.di.AppComponent
+import com.nick_sib.testtaskappcraft.di.DaggerAppComponent
+import com.nick_sib.testtaskappcraft.di.modules.AppModule
 
 class App: Application() {
 
@@ -12,20 +12,15 @@ class App: Application() {
             private set
     }
 
+    lateinit var appComponent: AppComponent
+        private set
+
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
     }
-
-    //Временно до даггера положим это тут
-    private val cicerone: Cicerone<Router> by lazy {
-        Cicerone.create()
-    }
-
-
-    val navigatorHolder: NavigatorHolder
-        get() = cicerone.navigatorHolder
-
-    val router: Router
-        get() = cicerone.router
 }

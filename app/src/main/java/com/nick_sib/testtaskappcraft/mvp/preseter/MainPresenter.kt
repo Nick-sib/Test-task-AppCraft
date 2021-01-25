@@ -5,13 +5,15 @@ import com.nick_sib.testtaskappcraft.navigation.Screens
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.Screen
+import javax.inject.Inject
 
-class MainPresenter(private val router: Router): MvpPresenter<ActivityView>() {
+class MainPresenter: MvpPresenter<ActivityView>() {
 
+    @Inject
+    lateinit var router: Router
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-
         router.newRootScreen(Screens.NetworkScreen())
     }
 

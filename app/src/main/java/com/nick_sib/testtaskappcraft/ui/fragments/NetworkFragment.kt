@@ -8,8 +8,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumsListBinding
-import com.nick_sib.testtaskappcraft.mvp.model.api.LoadAlbumsImpl
-import com.nick_sib.testtaskappcraft.mvp.model.repo.RepoAlbums
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.NetworkAndDatabasePresenter
 import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
@@ -23,10 +21,9 @@ class NetworkFragment: MvpAppCompatFragment(), RetrofitView {
     private var snack: Snackbar? = null
 
     private val presenter: NetworkAndDatabasePresenter by moxyPresenter {
-        NetworkAndDatabasePresenter(
-            RepoAlbums(networkStatus = LoadAlbumsImpl.networkStatus(App.instance)),
-            App.instance.router
-        )
+        NetworkAndDatabasePresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     private val adapter: AlbumsRVAdapter by lazy {
