@@ -19,9 +19,8 @@
 
     <ImageView
         android:id="@+id/b_like_dislike"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/ic_like"
+        style="@style/button_like_dislike"
+        android:contentDescription="@string/image_def_description"
         app:layout_constraintBottom_toBottomOf="@+id/rv_album_detail"
         app:layout_constraintEnd_toEndOf="parent" />
 

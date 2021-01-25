@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumsListBinding
@@ -13,7 +12,6 @@ import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.NetworkAndDatabasePresenter
 import com.nick_sib.testtaskappcraft.mvp.view.RetrofitView
 import com.nick_sib.testtaskappcraft.ui.adapter.AlbumsRVAdapter
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 class NetworkFragment: ParentFragment(), RetrofitView {

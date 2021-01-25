@@ -13,15 +13,11 @@ class RoomRepoAlbumsCache(private val db: Database): IRepoAlbums, IRepoAlbumsDet
     private val ioThread = Schedulers.io()
 
     override fun loadAllAlbumsList(): Single<List<AlbumData>> = Single.fromCallable {
-        db.albumDataDao.getAll()?.let {
-            it
-        } ?: emptyList()
+        db.albumDataDao.getAll() ?: emptyList()
     }.subscribeOn(ioThread)
 
     override fun loadAlbumDataList(albumID: String): Single<List<AlbumInfo>> = Single.fromCallable{
-        db.albumInfoDao.getInfoById(albumID.toInt())?.let {
-            it
-        } ?: emptyList()
+        db.albumInfoDao.getInfoById(albumID.toInt()) ?: emptyList()
     }.subscribeOn(ioThread)
 
     override fun waitInternet(): Observable<Boolean> = Observable.just(

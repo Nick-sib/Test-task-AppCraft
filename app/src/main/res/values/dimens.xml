@@ -6,8 +6,8 @@
     <dimen name="def_item_margin">10dp</dimen>
 
     <dimen name="def_button_bottom_offset">50dp</dimen>
-
     <integer name="album_columns_count">3</integer>
 
+    <dimen name="button_linear_size">64dp</dimen>
     <dimen name="spinner_size">50dip</dimen>
 </resources>

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumDetailBinding
@@ -86,8 +87,11 @@ class AlbumDetailDatabaseFragment: ParentFragment(), AlbumDetailView {
     override fun setFavorite(value: Boolean) {
         binding?.also {
             it.bLikeDislike.setImageDrawable(
-                resources.getDrawable(if (value) R.drawable.ic_dislike else R.drawable.ic_like,
-                    null))
+                ResourcesCompat.getDrawable(
+                    resources,
+                    if (value) R.drawable.ic_dislike else R.drawable.ic_like,
+                    null
+                ))
         }
     }
 

@@ -15,5 +15,6 @@
 
 
     <string name="image_def_description">only image nothing more</string>
+    <string name="coordinates_data">Coordinates:\nlat:%f\nlon:%f</string>
     <string name="coordinates">Coordinates:</string>
 </resources>
