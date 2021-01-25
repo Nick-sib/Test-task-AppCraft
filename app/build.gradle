@@ -53,7 +53,6 @@ dependencies {
 //MOXY
     implementation "com.github.moxy-community:moxy:$moxy_version"
     implementation 'androidx.wear:wear:1.1.0'
-    implementation 'com.google.android.gms:play-services-location:17.1.0'
     compileOnly 'com.google.android.wearable:wearable:2.8.1'
     kapt "com.github.moxy-community:moxy-compiler:$moxy_version"
     implementation "com.github.moxy-community:moxy-ktx:$moxy_version"
@@ -72,6 +71,9 @@ dependencies {
 //ROOM
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+//LOCATION SERVICE
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

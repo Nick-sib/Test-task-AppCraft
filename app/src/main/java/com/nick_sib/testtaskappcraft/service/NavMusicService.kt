@@ -16,7 +16,9 @@ private const val CHANNEL_NAME = "Navigation and music service channel"
 const val ACTION_LOCATION_IN_NOTIFICATION= "ACTION_LOCATION_IN_NOTIFICATION"
 const val ACTION_INTENT_SEND_LOCATION= "ACTION_INTENT_SEND_LOCATION"
 const val KEY_DATA_LOCATION= "KEY_DATA_LOCATION"
+
 const val REQUEST_LOCATION= 12345L
+const val REQUEST_PERMISSION_LOCATION= 123
 
 class NavMusicService: Service() {
 
