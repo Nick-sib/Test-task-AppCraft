@@ -6,7 +6,6 @@ import com.nick_sib.testtaskappcraft.mvp.model.api.ILoadAlbums
 import com.nick_sib.testtaskappcraft.mvp.model.netstate.INetworkStatus
 import com.nick_sib.testtaskappcraft.mvp.model.repo.IRepoAlbumsDetail
 import com.nick_sib.testtaskappcraft.mvp.model.repo.RepoAlbums
-import com.nick_sib.testtaskappcraft.mvp.model.repo.RepoAlbumsDetail
 import dagger.Module
 import dagger.Provides
 
@@ -17,7 +16,7 @@ class RepoAlbumsDetailModule {
     fun albumsRepo(
         api: ILoadAlbums,
         networkStatus: INetworkStatus,
-    ): IRepoAlbumsDetail = RepoAlbumsDetail(api, networkStatus)
+    ): IRepoAlbumsDetail = RepoAlbums(api, networkStatus)
 
 }
 
