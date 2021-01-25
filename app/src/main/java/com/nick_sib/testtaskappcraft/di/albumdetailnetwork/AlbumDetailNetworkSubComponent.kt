@@ -1,11 +1,11 @@
-package com.nick_sib.testtaskappcraft.di.albumdetail
+package com.nick_sib.testtaskappcraft.di.albumdetailnetwork
 
-import com.nick_sib.testtaskappcraft.di.albumdetail.modules.AlbumDetailCacheModule
-import com.nick_sib.testtaskappcraft.di.albumdetail.modules.RepoAlbumsDetailModule
+import com.nick_sib.testtaskappcraft.di.albumdetailnetwork.modules.AlbumDetailCacheModule
+import com.nick_sib.testtaskappcraft.di.albumdetailnetwork.modules.RepoAlbumsDetailModule
 import com.nick_sib.testtaskappcraft.mvp.preseter.AlbumDetailPresenter
 import dagger.Subcomponent
 
-@AlbumDetailScope
+@AlbumDetailNetworkScope
 @Subcomponent(
     modules = [
         RepoAlbumsDetailModule::class,

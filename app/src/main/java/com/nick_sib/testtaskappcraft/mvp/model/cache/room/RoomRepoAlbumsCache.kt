@@ -18,9 +18,11 @@ class RoomRepoAlbumsCache(private val db: Database): IRepoAlbums, IRepoAlbumsDet
         } ?: emptyList()
     }.subscribeOn(ioThread)
 
-    override fun loadAlbumDataList(albumID: String): Single<List<AlbumInfo>> {
-        TODO("Not yet implemented")
-    }
+    override fun loadAlbumDataList(albumID: String): Single<List<AlbumInfo>> = Single.fromCallable{
+        db.albumInfoDao.getInfoById(albumID.toInt())?.let {
+            it
+        } ?: emptyList()
+    }.subscribeOn(ioThread)
 
     override fun waitInternet(): Observable<Boolean> = Observable.just(
         false

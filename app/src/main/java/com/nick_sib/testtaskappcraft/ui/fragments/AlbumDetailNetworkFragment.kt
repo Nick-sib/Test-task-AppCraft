@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumDetailBinding
-import com.nick_sib.testtaskappcraft.di.albumdetail.AlbumDetailNetworkSubComponent
+import com.nick_sib.testtaskappcraft.di.albumdetailnetwork.AlbumDetailNetworkSubComponent
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableCache
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
@@ -136,7 +136,7 @@ class AlbumDetailNetworkFragment: MvpAppCompatFragment(), AlbumDetailView {
 
     override fun release() {
         albumDetailNetworkSubComponent = null
-        App.instance.releaseAlbumDetailSubComponent()
+        App.instance.releaseAlbumDetailNetworkSubComponent()
     }
 
     companion object {

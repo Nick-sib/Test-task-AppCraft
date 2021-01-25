@@ -1,14 +1,23 @@
 package com.nick_sib.testtaskappcraft.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
+import com.nick_sib.testtaskappcraft.App
+import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumDetailBinding
+import com.nick_sib.testtaskappcraft.di.albumdetail.database.AlbumDetailDatabaseSubComponent
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
+import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableCache
+import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
+import com.nick_sib.testtaskappcraft.mvp.preseter.AlbumDetailPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.AlbumDetailView
+import com.nick_sib.testtaskappcraft.ui.adapter.PhotosRVAdapter
 import moxy.MvpAppCompatFragment
+import moxy.ktx.moxyPresenter
 
 class AlbumDetailDatabaseFragment: MvpAppCompatFragment(), AlbumDetailView {
 
@@ -16,23 +25,23 @@ class AlbumDetailDatabaseFragment: MvpAppCompatFragment(), AlbumDetailView {
     private var snack: Snackbar? = null //TODO: Вынести show*** в родительский абстрактный класс
 
     private lateinit var album: AlbumData
-    private var albumDetailSubComponent: AlbumDetailSubComponent? = null
+    private var albumDetailDatabaseSubComponent: AlbumDetailDatabaseSubComponent? = null
 
-//    private val presenter: AlbumDetailPresenter by moxyPresenter {
-//        albumDetailSubComponent = App.instance.initAlbumDetailSubComponent()
-//        AlbumDetailPresenter(
-//            album,
-//        ).apply {
-//            albumDetailSubComponent?.inject(this)
-//        }
-//    }
-//
-//    private val adapter: PhotosRVAdapter by lazy {
-//        PhotosRVAdapter(presenter.albumsDetailListPresenter)
-//    }
+    private val presenter: AlbumDetailPresenter by moxyPresenter {
+        albumDetailDatabaseSubComponent = App.instance.initAlbumDetailDatabaseSubComponent()
+        AlbumDetailPresenter(
+            album,
+        ).apply {
+            albumDetailDatabaseSubComponent?.inject(this)
+        }
+    }
+
+    private val adapter: PhotosRVAdapter by lazy {
+        PhotosRVAdapter(presenter.albumsDetailListPresenter)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        album = arguments?.getParcelable(AlbumDetailDatabaseFragment.EXTRA_DATA) ?: AlbumData()
+        album = arguments?.getParcelable(EXTRA_DATA) ?: AlbumData()
         super.onCreate(savedInstanceState)
     }
 
@@ -46,12 +55,12 @@ class AlbumDetailDatabaseFragment: MvpAppCompatFragment(), AlbumDetailView {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        binding?.run {
-//            rvAlbumDetail.adapter = adapter
-//            bLikeDislike.setOnClickListener {
-//                presenter.changeToFavorite()
-//            }
-//        }
+        binding?.run {
+            rvAlbumDetail.adapter = adapter
+            bLikeDislike.setOnClickListener {
+                presenter.changeToFavorite()
+            }
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -65,32 +74,61 @@ class AlbumDetailDatabaseFragment: MvpAppCompatFragment(), AlbumDetailView {
 //        TODO("Not yet implemented")
     }
 
-    override fun endProgress() {
+    override fun endCache() {
 //        TODO("Not yet implemented")
+    }
+
+    override fun endProgress() {
+        adapter.notifyDataSetChanged()
+        binding?.bLikeDislike?.visibility = View.VISIBLE
     }
 
     override fun beginCache() {
 //        TODO("Not yet implemented")
     }
 
-    override fun endCache() {
-//        TODO("Not yet implemented")
-    }
-
     override fun setFavorite(value: Boolean) {
-//        TODO("Not yet implemented")
+        binding?.also {
+            it.bLikeDislike.setImageDrawable(
+                resources.getDrawable(if (value) R.drawable.ic_dislike else R.drawable.ic_like,
+                    null))
+        }
     }
 
     override fun showError(error: Throwable) {
-//        TODO("Not yet implemented")
+        when (error) {
+            is ThrowableCache -> {
+                //можно спрятать кнопку Favorite если еще не добалено но если добавлено не прятать
+                showSnack(
+                    resources.getString(R.string.snack_message_no_internet_connection),
+                    R.string.snack_button_got_it
+                )
+            }
+            else -> {
+                Log.d("myLOG", "showError: $error")
+                showSnack("${error.message}!", R.string.snack_button_got_it)
+            }
+        }
+    }
+
+    private fun showSnack(messageText: String, buttonText: Int, onItemClick: (() -> Unit)? = null) {
+        binding?.run {
+            snack = Snackbar.make(root, messageText, Snackbar.LENGTH_INDEFINITE)
+                .setAction(buttonText) {
+                    onItemClick?.invoke()
+                }.apply {
+                    show()
+                }
+        }
     }
 
     override fun hideShack() {
-//        TODO("Not yet implemented")
+        snack?.dismiss()
     }
 
     override fun release() {
-//        TODO("Not yet implemented")
+        albumDetailDatabaseSubComponent = null
+        App.instance.releaseAlbumDetailDatabaseSubComponent()
     }
 
     companion object {

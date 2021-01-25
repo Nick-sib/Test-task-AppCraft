@@ -3,7 +3,8 @@ package com.nick_sib.testtaskappcraft
 import android.app.Application
 import com.nick_sib.testtaskappcraft.di.AppComponent
 import com.nick_sib.testtaskappcraft.di.DaggerAppComponent
-import com.nick_sib.testtaskappcraft.di.albumdetail.AlbumDetailNetworkSubComponent
+import com.nick_sib.testtaskappcraft.di.albumdetail.database.AlbumDetailDatabaseSubComponent
+import com.nick_sib.testtaskappcraft.di.albumdetailnetwork.AlbumDetailNetworkSubComponent
 import com.nick_sib.testtaskappcraft.di.database.DatabaseSubComponent
 import com.nick_sib.testtaskappcraft.di.modules.AppModule
 import com.nick_sib.testtaskappcraft.di.network.NetworkSubComponent
@@ -19,8 +20,9 @@ class App: Application() {
         private set
 
     private var networkSubComponent: NetworkSubComponent? = null
-    private var albumDetailSubComponent: AlbumDetailNetworkSubComponent? = null
+    private var albumDetailNetworkSubComponent: AlbumDetailNetworkSubComponent? = null
     private var databaseSubComponent: DatabaseSubComponent? = null
+    private var albumDetailDatabaseSubComponent: AlbumDetailDatabaseSubComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -41,11 +43,11 @@ class App: Application() {
     }
 
     fun initAlbumDetailNetworkSubComponent() = networkSubComponent?.albumDetailSubComponent().also {
-        albumDetailSubComponent = it
+        albumDetailNetworkSubComponent = it
     }
 
-    fun releaseAlbumDetailSubComponent() {
-        albumDetailSubComponent = null
+    fun releaseAlbumDetailNetworkSubComponent() {
+        albumDetailNetworkSubComponent = null
     }
 
     fun initDatabaseSubComponent() = appComponent.databaseSubComponent().also {
@@ -54,6 +56,14 @@ class App: Application() {
 
     fun releaseDatabaseSubComponent() {
         databaseSubComponent = null
+    }
+
+    fun initAlbumDetailDatabaseSubComponent() = databaseSubComponent?.albumDetailDatabaseSubComponent().also {
+        albumDetailDatabaseSubComponent = it
+    }
+
+    fun releaseAlbumDetailDatabaseSubComponent() {
+        albumDetailDatabaseSubComponent = null
     }
 
 }

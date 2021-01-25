@@ -1,6 +1,6 @@
-package com.nick_sib.testtaskappcraft.di.albumdetail.modules
+package com.nick_sib.testtaskappcraft.di.albumdetailnetwork.modules
 
-import com.nick_sib.testtaskappcraft.di.albumdetail.AlbumDetailScope
+import com.nick_sib.testtaskappcraft.di.albumdetailnetwork.AlbumDetailNetworkScope
 
 import com.nick_sib.testtaskappcraft.mvp.model.api.ILoadAlbums
 import com.nick_sib.testtaskappcraft.mvp.model.netstate.INetworkStatus
@@ -11,7 +11,7 @@ import dagger.Provides
 
 @Module
 class RepoAlbumsDetailModule {
-    @AlbumDetailScope
+    @AlbumDetailNetworkScope
     @Provides
     fun albumsRepo(
         api: ILoadAlbums,
