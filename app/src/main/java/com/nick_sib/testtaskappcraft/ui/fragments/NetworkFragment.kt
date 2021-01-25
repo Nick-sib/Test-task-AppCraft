@@ -16,10 +16,9 @@ import com.nick_sib.testtaskappcraft.ui.adapter.AlbumsRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class NetworkFragment: MvpAppCompatFragment(), RetrofitView {
+class NetworkFragment: ParentFragment(), RetrofitView {
 
     private var binding: FragmentAlbumsListBinding? = null
-    private var snack: Snackbar? = null
 
     private var networkSubComponent: NetworkSubComponent? = null
 
@@ -66,22 +65,12 @@ class NetworkFragment: MvpAppCompatFragment(), RetrofitView {
     override fun showError(error: Throwable) {
         if (error is ThrowableConnect) {
             showSnack(
+                binding?.root,
                 resources.getString(R.string.snack_message_no_internet_connection),
                 R.string.snack_button_close)
             { activity?.finish() }
         } else {
-            showSnack("${error.message}!", R.string.snack_button_got_it)
-        }
-    }
-
-    private fun showSnack(messageText: String, buttonText: Int, onItemClick: (() -> Unit)? = null) {
-        binding?.run {
-            snack = Snackbar.make(root, messageText, Snackbar.LENGTH_INDEFINITE)
-                .setAction(buttonText) {
-                    onItemClick?.invoke()
-                }.apply {
-                    show()
-                }
+            showSnack(binding?.root,"${error.message}!", R.string.snack_button_got_it)
         }
     }
 

@@ -39,8 +39,6 @@ class NetworkAndDatabasePresenter: MvpPresenter<RetrofitView>() {
                     else
                         router.navigateTo(Screens.AlbumDetailDatabaseScreen(album))
                 }
-
-
         }
     }
 

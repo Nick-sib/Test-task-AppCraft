@@ -10,7 +10,7 @@ import com.google.android.gms.location.LocationServices
 import com.nick_sib.testtaskappcraft.mvp.model.entity.LocationMessage
 
 
-private const val INTERVAL = 500L
+private const val INTERVAL = 200L
 
 class LocateProvider(private val context: Context) {
 

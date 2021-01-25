@@ -117,13 +117,13 @@ class ServicesFragment: Fragment() {
 
     private fun showServiceRunning() {
         binding?.run {
-            button.text = "STOP"
+            button.setText(R.string.s_stop)
         }
     }
 
     private fun showServiceStopped() {
         binding?.run {
-            button.text = "START"
+            button.setText(R.string.s_start)
         }
     }
 

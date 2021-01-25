@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumDetailBinding
@@ -17,13 +16,11 @@ import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.AlbumDetailPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.AlbumDetailView
 import com.nick_sib.testtaskappcraft.ui.adapter.PhotosRVAdapter
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class AlbumDetailNetworkFragment: MvpAppCompatFragment(), AlbumDetailView {
+class AlbumDetailNetworkFragment: ParentFragment(), AlbumDetailView {
 
     private var binding: FragmentAlbumDetailBinding? = null
-    private var snack: Snackbar? = null //TODO: Вынести show*** в родительский абстрактный класс
 
     private lateinit var album: AlbumData
     private var albumDetailNetworkSubComponent: AlbumDetailNetworkSubComponent? = null
@@ -91,6 +88,7 @@ class AlbumDetailNetworkFragment: MvpAppCompatFragment(), AlbumDetailView {
         when (error) {
             is ThrowableConnect -> {
                     showSnack(
+                        binding?.root,
                         resources.getString(R.string.snack_message_no_internet_connection),
                         R.string.snack_button_close
                     )
@@ -99,27 +97,18 @@ class AlbumDetailNetworkFragment: MvpAppCompatFragment(), AlbumDetailView {
             is ThrowableCache -> {
                 //можно спрятать кнопку Favorite если еще не добалено но если добавлено не прятать
                     showSnack(
+                        binding?.root,
                         resources.getString(R.string.snack_message_no_internet_connection),
                         R.string.snack_button_got_it
                     )
             }
             else -> {
                 Log.d("myLOG", "showError: $error")
-                showSnack("${error.message}!", R.string.snack_button_got_it)
+                showSnack(binding?.root,"${error.message}!", R.string.snack_button_got_it)
             }
         }
     }
 
-    private fun showSnack(messageText: String, buttonText: Int, onItemClick: (() -> Unit)? = null) {
-        binding?.run {
-            snack = Snackbar.make(root, messageText, Snackbar.LENGTH_INDEFINITE)
-                .setAction(buttonText) {
-                    onItemClick?.invoke()
-                }.apply {
-                    show()
-                }
-        }
-    }
 
     override fun hideShack() {
         snack?.dismiss()
