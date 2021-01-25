@@ -13,6 +13,6 @@ import dagger.Subcomponent
     ]
 )
 
-interface AlbumDetailSubComponent {
+interface AlbumDetailNetworkSubComponent {
     fun inject(albumDetailPresenter: AlbumDetailPresenter)
 }

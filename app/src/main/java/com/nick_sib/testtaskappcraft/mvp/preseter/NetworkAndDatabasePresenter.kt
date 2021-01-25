@@ -30,7 +30,17 @@ class NetworkAndDatabasePresenter: MvpPresenter<RetrofitView>() {
 
         albumsListPresenter.itemClickListener = { itemView ->
             val album = albumsListPresenter.getData(itemView.pos)
-            router.navigateTo(Screens.AlbumDetailScreen(album))
+            //влюбых подходах хоть сеть хоть база если нет интернета гузим данные из базы
+            albumsRepo.waitInternet()
+                .observeOn(mainThread)
+                .subscribe {
+                    if (it)
+                        router.navigateTo(Screens.AlbumDetailNetworkScreen(album))
+                    else
+                        router.navigateTo(Screens.AlbumDetailDatabaseScreen(album))
+                }
+
+
         }
     }
 

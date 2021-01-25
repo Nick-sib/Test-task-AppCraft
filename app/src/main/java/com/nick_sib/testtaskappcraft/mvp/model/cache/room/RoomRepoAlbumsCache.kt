@@ -23,6 +23,6 @@ class RoomRepoAlbumsCache(private val db: Database): IRepoAlbums, IRepoAlbumsDet
     }
 
     override fun waitInternet(): Observable<Boolean> = Observable.just(
-        true
+        false
     ).subscribeOn(ioThread)
 }

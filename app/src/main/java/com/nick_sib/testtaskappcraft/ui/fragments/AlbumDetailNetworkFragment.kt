@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumDetailBinding
-import com.nick_sib.testtaskappcraft.di.albumdetail.AlbumDetailSubComponent
+import com.nick_sib.testtaskappcraft.di.albumdetail.AlbumDetailNetworkSubComponent
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableCache
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
@@ -20,20 +20,20 @@ import com.nick_sib.testtaskappcraft.ui.adapter.PhotosRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class AlbumDetailFragment: MvpAppCompatFragment(), AlbumDetailView {
+class AlbumDetailNetworkFragment: MvpAppCompatFragment(), AlbumDetailView {
 
     private var binding: FragmentAlbumDetailBinding? = null
     private var snack: Snackbar? = null //TODO: Вынести show*** в родительский абстрактный класс
 
     private lateinit var album: AlbumData
-    private var albumDetailSubComponent: AlbumDetailSubComponent? = null
+    private var albumDetailNetworkSubComponent: AlbumDetailNetworkSubComponent? = null
 
     private val presenter: AlbumDetailPresenter by moxyPresenter {
-        albumDetailSubComponent = App.instance.initAlbumDetailSubComponent()
+        albumDetailNetworkSubComponent = App.instance.initAlbumDetailNetworkSubComponent()
         AlbumDetailPresenter(
             album,
         ).apply {
-            albumDetailSubComponent?.inject(this)
+            albumDetailNetworkSubComponent?.inject(this)
         }
     }
 
@@ -135,14 +135,14 @@ class AlbumDetailFragment: MvpAppCompatFragment(), AlbumDetailView {
     }
 
     override fun release() {
-        albumDetailSubComponent = null
+        albumDetailNetworkSubComponent = null
         App.instance.releaseAlbumDetailSubComponent()
     }
 
     companion object {
-        private val EXTRA_DATA = AlbumDetailFragment::class.java.name + "EXTRA_DATA"
+        private val EXTRA_DATA = AlbumDetailNetworkFragment::class.java.name + "EXTRA_DATA"
 
-        fun instance(album: AlbumData) = AlbumDetailFragment().apply {
+        fun instance(album: AlbumData) = AlbumDetailNetworkFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(EXTRA_DATA, album)
             }
