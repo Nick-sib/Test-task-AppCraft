@@ -1,5 +1,6 @@
 package com.nick_sib.testtaskappcraft.di
 
+import com.nick_sib.testtaskappcraft.di.database.DatabaseSubComponent
 import com.nick_sib.testtaskappcraft.di.modules.ApiModule
 import com.nick_sib.testtaskappcraft.di.modules.AppModule
 import com.nick_sib.testtaskappcraft.di.modules.CiceroneModule
@@ -24,6 +25,7 @@ import javax.inject.Singleton
 
 interface AppComponent {
     fun networkSubComponent() : NetworkSubComponent
+    fun databaseSubComponent(): DatabaseSubComponent
 
     fun inject(mainActivity: MainActivity)
     fun inject(mainPresenter: MainPresenter)

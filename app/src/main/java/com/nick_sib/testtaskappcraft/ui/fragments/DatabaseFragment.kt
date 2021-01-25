@@ -8,6 +8,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumsListBinding
+import com.nick_sib.testtaskappcraft.di.database.DatabaseSubComponent
+import com.nick_sib.testtaskappcraft.di.network.NetworkSubComponent
 import com.nick_sib.testtaskappcraft.mvp.model.cache.room.RoomRepoAlbumsCache
 import com.nick_sib.testtaskappcraft.mvp.model.entity.room.Database
 import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
@@ -22,17 +24,19 @@ class DatabaseFragment: MvpAppCompatFragment(), RetrofitView {
     private var binding: FragmentAlbumsListBinding? = null
     private var snack: Snackbar? = null
 
-//    private val presenter: NetworkAndDatabasePresenter by moxyPresenter {
-//        NetworkAndDatabasePresenter(
-//            RoomRepoAlbumsCache(Database.instance!!),
-//        ).apply {
-//            App.instance.appComponent.inject(this)
-//        }
-//    }
-//
-//    private val adapter: AlbumsRVAdapter by lazy {
-//        AlbumsRVAdapter(presenter.albumsListPresenter)
-//    }
+    private var databaseSubComponent: DatabaseSubComponent? = null
+
+    private val presenter: NetworkAndDatabasePresenter by moxyPresenter {
+        databaseSubComponent = App.instance.initDatabaseSubComponent()
+        NetworkAndDatabasePresenter().apply {
+            databaseSubComponent?.inject(this)
+        }
+
+    }
+
+    private val adapter: AlbumsRVAdapter by lazy {
+        AlbumsRVAdapter(presenter.albumsListPresenter)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,19 +52,19 @@ class DatabaseFragment: MvpAppCompatFragment(), RetrofitView {
         super.onDestroy()
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        binding?.run {
-//            rvAlbum.adapter = adapter
-//        }
-//        super.onViewCreated(view, savedInstanceState)
-//    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding?.run {
+            rvAlbum.adapter = adapter
+        }
+        super.onViewCreated(view, savedInstanceState)
+    }
 
     override fun beginProgress() {
         //TODO:  показать circle_progress_bar
     }
 
     override fun endProgress() {
-//        adapter.notifyDataSetChanged()
+        adapter.notifyDataSetChanged()
     }
 
     override fun showError(error: Throwable) {
@@ -90,6 +94,7 @@ class DatabaseFragment: MvpAppCompatFragment(), RetrofitView {
     }
 
     override fun release() {
-        TODO("Not yet implemented")
+        databaseSubComponent = null
+        App.instance.releaseDatabaseSubComponent()
     }
 }

@@ -4,6 +4,7 @@ import android.app.Application
 import com.nick_sib.testtaskappcraft.di.AppComponent
 import com.nick_sib.testtaskappcraft.di.DaggerAppComponent
 import com.nick_sib.testtaskappcraft.di.albumdetail.AlbumDetailSubComponent
+import com.nick_sib.testtaskappcraft.di.database.DatabaseSubComponent
 import com.nick_sib.testtaskappcraft.di.modules.AppModule
 import com.nick_sib.testtaskappcraft.di.network.NetworkSubComponent
 
@@ -19,6 +20,7 @@ class App: Application() {
 
     private var networkSubComponent: NetworkSubComponent? = null
     private var albumDetailSubComponent: AlbumDetailSubComponent? = null
+    private var databaseSubComponent: DatabaseSubComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -44,6 +46,14 @@ class App: Application() {
 
     fun releaseAlbumDetailSubComponent() {
         albumDetailSubComponent = null
+    }
+
+    fun initDatabaseSubComponent() = appComponent.databaseSubComponent().also {
+        databaseSubComponent = it
+    }
+
+    fun releaseDatabaseSubComponent() {
+        databaseSubComponent = null
     }
 
 }
