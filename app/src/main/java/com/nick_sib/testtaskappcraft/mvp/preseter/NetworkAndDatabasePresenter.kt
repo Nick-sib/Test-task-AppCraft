@@ -47,12 +47,16 @@ class NetworkAndDatabasePresenter: MvpPresenter<RetrofitView>() {
         viewState.release()
     }
 
-    private fun loadData() {
+    fun loadData(): Boolean {
+        var result = false
         viewState.beginProgress()
         albumsRepo.loadAllAlbumsList()
             .observeOn(mainThread)
             .subscribe({
-                albumsListPresenter.setList(it)
+                result = it.size != albumsListPresenter.getCount()
+                if (result) {
+                    albumsListPresenter.setList(it)
+                }
                 viewState.endProgress()
             }, { error ->
                 if (error is ThrowableConnect) {
@@ -61,6 +65,7 @@ class NetworkAndDatabasePresenter: MvpPresenter<RetrofitView>() {
                     viewState.showError(error)
                 }
             })
+        return result
     }
 
     private fun waitInternetConnection() {

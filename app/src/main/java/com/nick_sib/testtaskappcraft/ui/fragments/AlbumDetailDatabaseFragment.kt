@@ -85,6 +85,9 @@ class AlbumDetailDatabaseFragment: ParentFragment(), AlbumDetailView {
                     if (value) R.drawable.ic_dislike else R.drawable.ic_like,
                     null
                 ))
+            if (!value) {
+                it.bLikeDislike.visibility = View.GONE
+            }
         }
     }
 

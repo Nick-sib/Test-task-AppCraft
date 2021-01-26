@@ -49,6 +49,10 @@ class DatabaseFragment: ParentFragment(), RetrofitView {
         binding?.run {
             rvAlbum.adapter = adapter
         }
+
+        if (presenter.loadData()) {
+            adapter.notifyDataSetChanged()
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
