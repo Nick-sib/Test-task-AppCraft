@@ -1,12 +1,15 @@
 package com.nick_sib.testtaskappcraft.ui
 
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.nick_sib.testtaskappcraft.*
 import com.nick_sib.testtaskappcraft.databinding.ActivityMainBinding
 import com.nick_sib.testtaskappcraft.mvp.preseter.MainPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.ActivityView
 import com.nick_sib.testtaskappcraft.navigation.Screens
+import com.nick_sib.testtaskappcraft.service.REQUEST_PERMISSION_LOCATION
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -59,6 +62,8 @@ class MainActivity : MvpAppCompatActivity(), ActivityView {
         super.onPause()
         navigatorHolder.removeNavigator()
     }
+
+
 
 
 }
