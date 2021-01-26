@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/default_offset"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -11,10 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:layout_margin="@dimen/default_offset"
         tools:listitem="@layout/item_album_detail"
         tools:itemCount="10"
         app:spanCount="@integer/album_columns_count"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+
+    <ImageView
+        android:id="@+id/b_like_dislike"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_like"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_album_detail"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

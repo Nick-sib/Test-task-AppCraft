@@ -12,4 +12,7 @@
     <color name="spinner_center">#886688CC</color>
     <color name="spinner_end">#ff6688CC</color>
     <color name="spinner_start">#006688CC</color>
+
+    <!--icon-->
+    <color name="like_heart">#FF000000</color>
 </resources>

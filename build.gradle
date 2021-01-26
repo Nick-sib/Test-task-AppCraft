@@ -5,12 +5,14 @@ buildscript {
         moxy_version = "2.2.0"
         retrofit_version = "2.9.0"
         rx_version = "3.0.0"
+        room_version = "2.2.6"
     }
     repositories {
         google()
         jcenter()
     }
     dependencies {
+        //noinspection AndroidGradlePluginVersion
         classpath "com.android.tools.build:gradle:4.2.0-beta03"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 

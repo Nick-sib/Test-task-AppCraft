@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-class NetworkPresenter(
+class NetworkAndDatabasePresenter(
         private val albumsRepo: IRepoAlbums,
         private val router: Router,
     ): MvpPresenter<RetrofitView>() {
@@ -26,17 +26,17 @@ class NetworkPresenter(
 
             albumsListPresenter.itemClickListener = { itemView ->
                 val album = albumsListPresenter.getData(itemView.pos)
-                router.navigateTo(Screens.AlbumDetailScreen(album.id))
+                router.navigateTo(Screens.AlbumDetailScreen(album))
             }
         }
 
         private fun loadData() {
-            viewState.beginLoading()
+            viewState.beginProgress()
             albumsRepo.loadAllAlbumsList()
                 .observeOn(mainThread)
                 .subscribe({
                     albumsListPresenter.setList(it)
-                    viewState.endLoading()
+                    viewState.endProgress()
                 }, { error ->
                     if (error is ThrowableConnect) {
                         waitInternetConnection()

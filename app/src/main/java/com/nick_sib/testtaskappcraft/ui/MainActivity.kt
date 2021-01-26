@@ -28,7 +28,7 @@ class MainActivity : MvpAppCompatActivity(), ActivityView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.apply {
+        binding.bottomNavigationView.apply {
             setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.bottom_network -> {
@@ -46,7 +46,7 @@ class MainActivity : MvpAppCompatActivity(), ActivityView {
                 }
                 true
             }
-            selectedItemId = R.id.bottom_network
+            //selectedItemId = R.id.bottom_network
         }
     }
 
@@ -59,7 +59,6 @@ class MainActivity : MvpAppCompatActivity(), ActivityView {
         super.onPause()
         navigatorHolder.removeNavigator()
     }
-
 
 
 }
