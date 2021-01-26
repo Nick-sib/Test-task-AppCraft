@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.R
 import com.nick_sib.testtaskappcraft.databinding.FragmentAlbumDetailBinding
@@ -67,27 +68,26 @@ class AlbumDetailDatabaseFragment: ParentFragment(), AlbumDetailView {
 
 
     override fun beginProgress() {
-//        TODO("Not yet implemented")
+        //что бы то нибыло показывать нет смысла всё быстро появиться и спрячется
     }
 
-    override fun endCache() {
-//        TODO("Not yet implemented")
-    }
 
     override fun endProgress() {
         adapter.notifyDataSetChanged()
         binding?.bLikeDislike?.visibility = View.VISIBLE
     }
 
-    override fun beginCache() {
-//        TODO("Not yet implemented")
-    }
-
     override fun setFavorite(value: Boolean) {
         binding?.also {
             it.bLikeDislike.setImageDrawable(
-                resources.getDrawable(if (value) R.drawable.ic_dislike else R.drawable.ic_like,
-                    null))
+                ResourcesCompat.getDrawable(
+                    resources,
+                    if (value) R.drawable.ic_dislike else R.drawable.ic_like,
+                    null
+                ))
+            if (!value) {
+                it.bLikeDislike.visibility = View.GONE
+            }
         }
     }
 

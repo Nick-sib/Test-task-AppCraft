@@ -78,12 +78,10 @@ class AlbumDetailPresenter(
 
     private fun addToFavorite(){
         dataCache.run{
-            viewState.beginCache()
             addAlbumData(albumData, albumInfo)
                 .observeOn(mainThread)
                 .subscribe({
                         viewState.setFavorite(true)
-                        viewState.beginCache()
                     }, { error ->
                         if (error is ThrowableCache) {
                             viewState.showError(ThrowableCache())
@@ -98,12 +96,10 @@ class AlbumDetailPresenter(
 
     private fun deleteFromFavorite(){
         dataCache.run{
-            viewState.beginCache()
             deleteAlbumData(albumData)
                 .observeOn(mainThread)
                 .subscribe({
                     viewState.setFavorite(false)
-                    viewState.beginCache()
                 }, { error ->
                     if (error is ThrowableCache) {
                         viewState.showError(ThrowableCache())

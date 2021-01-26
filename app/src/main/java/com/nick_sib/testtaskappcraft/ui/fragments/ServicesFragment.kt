@@ -111,7 +111,7 @@ class ServicesFragment: Fragment() {
 
     private fun showLocation(data: LocationMessage) {
         binding?.run {
-            textView.text = "${resources.getString(R.string.coordinates)}:\n lat:${data.latitude} \n lon:${data.longitude}"
+            textView.text = getString(R.string.coordinates_data, data.latitude, data.longitude)
         }
     }
 

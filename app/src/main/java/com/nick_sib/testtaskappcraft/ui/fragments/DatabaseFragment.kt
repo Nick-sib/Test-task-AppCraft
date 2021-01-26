@@ -49,14 +49,23 @@ class DatabaseFragment: ParentFragment(), RetrofitView {
         binding?.run {
             rvAlbum.adapter = adapter
         }
+
+        if (presenter.loadData()) {
+            adapter.notifyDataSetChanged()
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
     override fun beginProgress() {
-        //TODO:  показать circle_progress_bar
+        binding?.run {
+            progress.visibility = View.VISIBLE
+        }
     }
 
     override fun endProgress() {
+        binding?.run {
+            progress.visibility = View.GONE
+        }
         adapter.notifyDataSetChanged()
     }
 

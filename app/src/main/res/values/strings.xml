@@ -3,17 +3,15 @@
 
     <string name="snack_button_close">Exit</string>
     <string name="snack_message_no_internet_connection">No internet connection, waiting for data</string>
-    <string name="snack_message_no_cache">Database is unavailable</string>
     <string name="snack_button_got_it">GOT IT</string>
     <string name="s_network">Network</string>
     <string name="s_database">DataBase</string>
     <string name="s_services">Services</string>
     <string name="s_stop">STOP</string>
     <string name="s_start">START</string>
-    <string name="message_error_data">Sorry, data not transferred</string>
-
-
 
     <string name="image_def_description">only image nothing more</string>
+    <string name="coordinates_data">Coordinates:\nlat:%f\nlon:%f</string>
     <string name="coordinates">Coordinates:</string>
+    <string name="progressbar_description">quick progressbar</string>
 </resources>

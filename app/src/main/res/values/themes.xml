@@ -25,4 +25,17 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <style name="button_like_dislike">
+        <item name="android:layout_width">@dimen/button_linear_size</item>
+        <item name="android:layout_height">@dimen/button_linear_size</item>
+        <item name="android:src">@drawable/ic_like</item>
+    </style>
+
+    <style name="progressbar_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">60dp</item>
+        <item name="android:src">@drawable/progressbar</item>
+    </style>
 </resources>

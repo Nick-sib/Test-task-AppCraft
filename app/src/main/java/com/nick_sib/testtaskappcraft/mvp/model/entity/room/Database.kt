@@ -1,8 +1,7 @@
 package com.nick_sib.testtaskappcraft.mvp.model.entity.room
 
-import androidx.room.Room
+
 import androidx.room.RoomDatabase
-import com.nick_sib.testtaskappcraft.App
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumInfo
 import com.nick_sib.testtaskappcraft.mvp.model.entity.room.dao.AlbumDataDao
