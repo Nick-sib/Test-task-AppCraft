@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_network"
+        android:icon="@drawable/ic_network"
+        android:title="@string/s_network" />
+
+    <item
+        android:id="@+id/bottom_database"
+        android:title="@string/s_database" />
+
+    <item
+        android:id="@+id/bottom_services"
+        android:title="@string/s_services" />
+</menu>
