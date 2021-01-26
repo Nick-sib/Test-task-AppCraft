@@ -1,7 +1,6 @@
 package com.nick_sib.testtaskappcraft.mvp.preseter
 
 import com.nick_sib.testtaskappcraft.mvp.model.cache.IAlbumDetailCache
-import com.nick_sib.testtaskappcraft.mvp.model.cache.IAlbumInfoCache
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumInfo
 import com.nick_sib.testtaskappcraft.mvp.model.repo.IRepoAlbumsDetail
@@ -10,25 +9,35 @@ import com.nick_sib.testtaskappcraft.mvp.model.throws.ThrowableConnect
 import com.nick_sib.testtaskappcraft.mvp.preseter.list.IAlbumDetailItemView
 import com.nick_sib.testtaskappcraft.mvp.preseter.list.IDataListPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.AlbumDetailView
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
+import javax.inject.Inject
 
 class AlbumDetailPresenter(
     private val albumData: AlbumData,
-    private val albumDetailRepo: IRepoAlbumsDetail,
-    private val dataCache: IAlbumDetailCache?,
-    ): MvpPresenter<AlbumDetailView>() {
+): MvpPresenter<AlbumDetailView>() {
 
-    private val mainThread = AndroidSchedulers.mainThread()
+    @Inject
+    lateinit var albumDetailRepo: IRepoAlbumsDetail
+    @Inject
+    lateinit var dataCache: IAlbumDetailCache
+    @Inject
+    lateinit var mainThread: Scheduler
+
     private var albumInfo: List<AlbumInfo> = emptyList()
 
     val albumsDetailListPresenter: IDataListPresenter<AlbumInfo, IAlbumDetailItemView> = AlbumsDetailListPresenter()
 
-    var isFavorite: Boolean = false
+    private var isFavorite: Boolean = false
 
     override fun onFirstViewAttach() {
         loadData()
         isFavorite()
+    }
+
+    override fun onDestroy() {
+        viewState.release()
+        super.onDestroy()
     }
 
     private fun loadData() {
@@ -49,7 +58,7 @@ class AlbumDetailPresenter(
     }
 
     private fun isFavorite(){
-        dataCache?.run {
+        dataCache.run {
             checkAlbumData(albumData.id)
                 .observeOn(mainThread)
                 .subscribe({
@@ -68,7 +77,7 @@ class AlbumDetailPresenter(
     }
 
     private fun addToFavorite(){
-        dataCache?.run{
+        dataCache.run{
             viewState.beginCache()
             addAlbumData(albumData, albumInfo)
                 .observeOn(mainThread)
@@ -88,7 +97,7 @@ class AlbumDetailPresenter(
     }
 
     private fun deleteFromFavorite(){
-        dataCache?.run{
+        dataCache.run{
             viewState.beginCache()
             deleteAlbumData(albumData)
                 .observeOn(mainThread)

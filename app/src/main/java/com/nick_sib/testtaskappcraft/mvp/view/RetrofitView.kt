@@ -10,4 +10,6 @@ interface RetrofitView : MvpView {
     fun endProgress()
     fun showError(error: Throwable)
     fun hideShack()
+
+    fun release()
 }

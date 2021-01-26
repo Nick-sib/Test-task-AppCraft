@@ -1,10 +1,7 @@
 package com.nick_sib.testtaskappcraft.navigation
 
 import com.nick_sib.testtaskappcraft.mvp.model.entity.AlbumData
-import com.nick_sib.testtaskappcraft.ui.fragments.AlbumDetailFragment
-import com.nick_sib.testtaskappcraft.ui.fragments.DatabaseFragment
-import com.nick_sib.testtaskappcraft.ui.fragments.NetworkFragment
-import com.nick_sib.testtaskappcraft.ui.fragments.ServicesFragment
+import com.nick_sib.testtaskappcraft.ui.fragments.*
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class Screens {
@@ -20,7 +17,11 @@ class Screens {
         override fun getFragment() = ServicesFragment()
     }
     
-    class AlbumDetailScreen(private val album: AlbumData) : SupportAppScreen() {
-        override fun getFragment() = AlbumDetailFragment.instance(album)
+    class AlbumDetailNetworkScreen(private val album: AlbumData) : SupportAppScreen() {
+        override fun getFragment() = AlbumDetailNetworkFragment.instance(album)
+    }
+
+    class AlbumDetailDatabaseScreen(private val album: AlbumData) : SupportAppScreen() {
+        override fun getFragment() = AlbumDetailDatabaseFragment.instance(album)
     }
 }

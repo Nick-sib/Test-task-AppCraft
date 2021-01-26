@@ -51,7 +51,7 @@ class ServicesFragment: Fragment() {
         if (isPlaying) showServiceRunning()
         else showServiceStopped()
         binding?.run {
-            button?.setOnClickListener {
+            button.setOnClickListener {
                 if (isPlaying) {
                     stopService()
                 }
@@ -63,8 +63,9 @@ class ServicesFragment: Fragment() {
     }
 
     private fun registerReceivers() {
-        locationReceiver = LocationReceiver { showLocation(it) }
-        locationReceiver?.register(requireContext())
+        locationReceiver = LocationReceiver { showLocation(it) }.apply {
+            register(requireContext())
+        }
     }
 
     private fun removeReceivers() {
@@ -116,13 +117,13 @@ class ServicesFragment: Fragment() {
 
     private fun showServiceRunning() {
         binding?.run {
-            button.text = "STOP"
+            button.setText(R.string.s_stop)
         }
     }
 
     private fun showServiceStopped() {
         binding?.run {
-            button.text = "START"
+            button.setText(R.string.s_start)
         }
     }
 

@@ -1,36 +1,42 @@
 package com.nick_sib.testtaskappcraft.ui
 
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.nick_sib.testtaskappcraft.*
 import com.nick_sib.testtaskappcraft.databinding.ActivityMainBinding
 import com.nick_sib.testtaskappcraft.mvp.preseter.MainPresenter
 import com.nick_sib.testtaskappcraft.mvp.view.ActivityView
 import com.nick_sib.testtaskappcraft.navigation.Screens
-import com.nick_sib.testtaskappcraft.service.REQUEST_PERMISSION_LOCATION
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), ActivityView {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val navigatorHolder = App.instance.navigatorHolder
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
     private val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
 
-
     private val presenter: MainPresenter by moxyPresenter {
-        MainPresenter(App.instance.router)
+        MainPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        App.instance.appComponent.inject(this)
 
+        initNavigation()
+    }
+
+    private fun initNavigation(){
         binding.bottomNavigationView.apply {
             setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
@@ -49,7 +55,6 @@ class MainActivity : MvpAppCompatActivity(), ActivityView {
                 }
                 true
             }
-            //selectedItemId = R.id.bottom_network
         }
     }
 
@@ -62,8 +67,5 @@ class MainActivity : MvpAppCompatActivity(), ActivityView {
         super.onPause()
         navigatorHolder.removeNavigator()
     }
-
-
-
 
 }

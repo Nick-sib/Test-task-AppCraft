@@ -16,4 +16,6 @@ interface AlbumDetailView: MvpView {
     fun showError(error: Throwable)
     fun hideShack()
 
+    fun release()
+
 }
